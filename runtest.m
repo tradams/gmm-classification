@@ -11,7 +11,9 @@ for(j=1:numTest)
     feature = testSet(j,:)
     scores = [];
     for(k=1:length(models))
-        
+
+
+%the covariance matrix is estimated from all training samples
         covar = modelsMap(models{k}).Sigma;
 %        score = pdf(modelsMap(models{k}),feature);
         score = feature*covar*feature';
