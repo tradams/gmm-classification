@@ -2,7 +2,7 @@ function[] = buildnormalizedgenre(pathName,outputfile);
 
 
 % -----------------------------------------------------------
-% Builds normalized genre models, run once per genre path
+% Buils normalized genre models, run once per genre path
 %	Copyright (C) 2012  Drexel University
 %
 %	Author : Kamelia Aryafar
@@ -19,12 +19,7 @@ for k=1: length (mfccFiles)
 	filename = mfccFiles(k).name;
 	temp = csvread(filename);
 	[temp_x,temp_y] = size(temp);
-	random= randperm(temp_x);
-	for i=1 : 500
-		temp_2=[temp_2;temp(random(i),:)];
-	end;
-		
-	dataMatrix = [dataMatrix;temp_2];
+	dataMatrix = [dataMatrix;temp];
 	clear temp temp_2 temp_x temp_y
 end;
 
@@ -35,6 +30,7 @@ if (n == 13 )
 else
 	fprintf('ERROR: MFCC dimension mismatched\n');
 end
+
 
 
 cd(oldpwd)

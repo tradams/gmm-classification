@@ -1,22 +1,20 @@
-function[] = runtest(path,modelsMap);
+function[answer] = runtest(modelsMap,genreTest);
 
 %modelsMap = buildGMM('./tt_models/');
 models = modelsMap.keys;
 
-testSet = transpose(csvread(sprintf('%s/%s',path,'Alternative.model.test')));
+testSet = csvread(genreTest);
 
 testScores = [];
 numTest = length(testSet(:,1));
 for(j=1:numTest)
-    feature = testSet(j,:)
+    feature = testSet(j,:);
     scores = [];
     for(k=1:length(models))
-
-
-%the covariance matrix is estimated from all training samples
+        
         covar = modelsMap(models{k}).Sigma;
-%        score = pdf(modelsMap(models{k}),feature);
-        score = feature*covar*feature';
+        score = pdf(modelsMap(models{k}),feature);
+%        score = feature*covar*feature';
         scores = cat(2,scores,score);
     end
     if mod(j,1000) == 0
@@ -39,4 +37,3 @@ for(i=1:numTest)
     end 
     answer = answer+nscore;
 end
-answer*1/numTest
