@@ -2,6 +2,7 @@ function[answer] = gmmClassify(path);
 
 modelsMap = buildGMM(path);
 models = modelsMap.keys;
+modelsMap = transformGMM(modelsMap);
 
 
 correct=0;
